@@ -73,6 +73,7 @@
         <snomedct-origin.version>${source.qualifier}-${source.version}+1.0.0-SNAPSHOT</snomedct-origin.version>
         <data-artifact.prefix>${project.artifactId}-${project.version}</data-artifact.prefix>
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <transformation-plugin.version>1.0.0-SNAPSHOT</transformation-plugin.version>
     </properties>
 
     <build>
@@ -99,9 +100,14 @@
                     <version>${maven-dependency-plugin.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>dev.ikm.maven</groupId>
+                    <groupId>dev.ikm.maven.snomedct</groupId>
                     <artifactId>snomedct-starterdata-maven-plugin</artifactId>
-                    <version>1.0.0-SNAPSHOT</version>
+                    <version>${transformation-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>dev.ikm.maven.snomedct</groupId>
+                    <artifactId>snomedct-transformation-maven-plugin</artifactId>
+                    <version>${transformation-plugin.version}</version>
                 </plugin>
                 <!-- Skip Enforcer Rule -->
                 <plugin>
@@ -276,7 +282,6 @@
                     <plugin>
                         <groupId>dev.ikm.maven.snomedct</groupId>
                         <artifactId>snomedct-starterdata-maven-plugin</artifactId>
-                        <version>1.0.0-SNAPSHOT</version>
                         <configuration>
                             <namespaceString>${origin.namespace}</namespaceString>
                             <datastorePath>${project.build.directory}/datastore</datastorePath>
@@ -291,28 +296,27 @@
                             </execution>
                         </executions>
                     </plugin>
-<!--                    &lt;!&ndash; Build Snomed Data&ndash;&gt;-->
-<!--                    <plugin>-->
-<!--                        <groupId>dev.ikm.maven.snomedct</groupId>-->
-<!--                        <artifactId>snomedct-transformation-maven-plugin</artifactId>-->
-<!--                        <version>1.0.0-SNAPSHOT</version>-->
-<!--                        <configuration>-->
-<!--                            <namespaceString>${origin.namespace}</namespaceString>-->
-<!--                            <datastorePath>${project.build.directory}/datastore</datastorePath>-->
-<!--                            <inputDirectoryPath>${project.build.directory}/origin-data/snomedct</inputDirectoryPath>-->
-<!--                            <dataOutputPath>${project.build.directory}</dataOutputPath>-->
-<!--                            <skipUnzip>true</skipUnzip>-->
-<!--                        </configuration>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>run-snomed-transformation</id>-->
-<!--                                <phase>compile</phase>-->
-<!--                                <goals>-->
-<!--                                    <goal>run-snomed-transformation</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <!-- Build Snomed Data-->
+                    <plugin>
+                        <groupId>dev.ikm.maven.snomedct</groupId>
+                        <artifactId>snomedct-transformation-maven-plugin</artifactId>
+                        <configuration>
+                            <namespaceString>${origin.namespace}</namespaceString>
+                            <datastorePath>${project.build.directory}/datastore</datastorePath>
+                            <inputDirectoryPath>${project.build.directory}/origin-data/snomedct</inputDirectoryPath>
+                            <dataOutputPath>${project.build.directory}</dataOutputPath>
+                            <skipUnzip>true</skipUnzip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>run-snomed-transformation</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>run-snomed-transformation</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>

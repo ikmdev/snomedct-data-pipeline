@@ -108,7 +108,9 @@ public class SnomedTransformationMojo extends AbstractMojo {
     }
 
     private Path searchTerminologyFolder(File baseDirectory, String parentDir) {
-        Path dataDirectory = baseDirectory.toPath().resolve("src", parentDir);
+        // TODO: Fix this to align with updated origin packaging structure
+//        Path dataDirectory = baseDirectory.toPath().resolve("src", parentDir);
+        Path dataDirectory = baseDirectory.toPath();
         try (Stream<Path> stream = Files.walk(dataDirectory)) {
             return stream
                     .filter(file -> file.toFile().isDirectory() && "Full".equals(file.toFile().getName()))
@@ -232,7 +234,7 @@ public class SnomedTransformationMojo extends AbstractMojo {
      * @param absolutePath of file for Transformer match
      */
     private Transformer getTransformer(String absolutePath) {
-        if (absolutePath.contains("snomedFull")) {
+        if (absolutePath.contains("Full") && absolutePath.contains("Full")) {
             if (absolutePath.contains("Concept")) {
                 return new ConceptTransformer(namespace);
             } else if (absolutePath.contains("Definition")) {
