@@ -100,7 +100,7 @@
                 </plugin>
                 <plugin>
                     <groupId>dev.ikm.maven</groupId>
-                    <artifactId>snomed-ct-starterdata-maven-plugin</artifactId>
+                    <artifactId>snomedct-starterdata-maven-plugin</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                 </plugin>
                 <!-- Skip Staging Plugin -->
@@ -256,11 +256,12 @@
                     </plugin>
                     <!-- Build Snomed Starter Data-->
                     <plugin>
-                        <groupId>dev.ikm.maven</groupId>
+                        <groupId>dev.ikm.maven.snomedct</groupId>
                         <artifactId>snomedct-starterdata-maven-plugin</artifactId>
                         <version>1.0.0-SNAPSHOT</version>
                         <configuration>
                             <namespaceString>${origin.namespace}</namespaceString>
+                            <datastorePath>${project.build.directory}/datastore</datastorePath>
                         </configuration>
                         <executions>
                             <execution>
@@ -274,7 +275,7 @@
                     </plugin>
 <!--                    &lt;!&ndash; Build Snomed Data&ndash;&gt;-->
 <!--                    <plugin>-->
-<!--                        <groupId>dev.ikm.maven</groupId>-->
+<!--                        <groupId>dev.ikm.maven.snomedct</groupId>-->
 <!--                        <artifactId>snomedct-transformation-maven-plugin</artifactId>-->
 <!--                        <version>1.0.0-SNAPSHOT</version>-->
 <!--                        <configuration>-->
