@@ -22,13 +22,21 @@ jobs:
     name: Build Job
     runs-on: ubuntu-24.04
     steps:
+      - name: Maven Settings File
+        uses: whelk-io/maven-settings-xml-action@v22
+        with:
+          servers: '[{"id": "maven-public", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
+          mirrors: '[{"id": "maven-public", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/maven-public"}]'
+          output_file: .m2/tinkar-settings.xml
+
       - name: Build Plugins
         uses: ikmdev/maven-clean-install-build-action@v3.5.0
         with:
           branch_name: ${{github.ref_name}}
-          working_directory: plugin
+          mvn_additional_args: " -f plugin"
 
-#      - name: Build Data Pipeline
-#        uses: ikmdev/maven-clean-install-build-action@v3.5.0
-#        with:
-#          branch_name: ${{github.ref_name}}
+      - name: Build Data Pipeline
+        uses: ikmdev/maven-clean-install-build-action@v3.5.0
+        with:
+          branch_name: ${{github.ref_name}}
+          mvn_additional_args: " -s '/home/runner/work/${{github.event.repository.name}}/${{github.event.repository.name}}/.m2/tinkar-settings.xml' -DrepositoryId='maven-public'"
