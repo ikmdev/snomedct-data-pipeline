@@ -103,6 +103,24 @@
                     <artifactId>snomedct-starterdata-maven-plugin</artifactId>
                     <version>1.0.0-SNAPSHOT</version>
                 </plugin>
+                <!-- Skip Enforcer Rule -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>enforce-no-bad-sections</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Don't enforce SemVer for this project -->
+                                <rulesToSkip>requireProperty</rulesToSkip>
+                                <failIfNoRules>false</failIfNoRules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <!-- Skip Staging Plugin -->
                 <plugin>
                     <groupId>org.sonatype.central</groupId>
