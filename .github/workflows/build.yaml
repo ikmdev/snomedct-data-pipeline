@@ -26,7 +26,7 @@ jobs:
         uses: whelk-io/maven-settings-xml-action@v22
         with:
           servers: '[{"id": "maven-public", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
-          mirrors: '[{"id": "maven-public", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/maven-public"}]'
+          mirrors: '[{"id": "maven-public", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/maven-public/"}]'
           output_file: ../.m2/tinkar-settings.xml
 
       - name: Build Plugins
