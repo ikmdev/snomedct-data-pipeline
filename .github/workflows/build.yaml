@@ -26,7 +26,7 @@ jobs:
         uses: ikmdev/maven-clean-install-build-action@v3.5.0
         with:
           branch_name: ${{github.ref_name}}
-          working_directory: plugins
+          working_directory: plugin
 
       - name: Build Data Pipeline
         uses: ikmdev/maven-clean-install-build-action@v3.5.0
