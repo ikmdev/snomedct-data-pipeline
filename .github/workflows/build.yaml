@@ -27,6 +27,24 @@ jobs:
         with:
           servers: '[{"id": "maven-public", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
           mirrors: '[{"id": "maven-public", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/maven-public/"}]'
+          repositories: '
+            [
+              {
+                "id": "maven-public",
+                "name": "maven-public",
+                "url": "https://nexus.tinkarbuild.com/repository/maven-public/",
+                "releases": {
+                  "enabled": "true",
+                  "updatePolicy": "always",
+                  "checksumPolicy": "fail"
+                },
+                "snapshots": {
+                  "enabled": "true",
+                  "updatePolicy": "always",
+                  "checksumPolicy": "fail"
+                }
+              }
+            ]'
           output_file: ../.m2/tinkar-settings.xml
 
       - name: Build Plugins
