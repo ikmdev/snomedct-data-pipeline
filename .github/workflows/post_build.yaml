@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Plugins Post Build
-        id: ikmdev_post_build
+        id: plugins_post_build
         uses: ikmdev/maven-post-build-action@v3.2.0
         with:
           working_directory: plugin
@@ -41,7 +41,7 @@ jobs:
           sonarcloud_tests: ${{ '' }}
 
       - name: Data Pipeline Post Build
-        id: ikmdev_post_build
+        id: data_pipeline_post_build
         uses: ikmdev/maven-post-build-action@v3.2.0
         with:
             nexus_repo_password: ${{secrets.EC2_NEXUS_PASSWORD}}
