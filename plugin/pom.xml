@@ -121,6 +121,11 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
+                </plugin>
                 <!-- Skip Staging Plugin -->
                 <plugin>
                     <groupId>org.sonatype.central</groupId>
