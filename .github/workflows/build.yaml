@@ -51,10 +51,10 @@ jobs:
         uses: ikmdev/maven-clean-install-build-action@v3.5.0
         with:
           branch_name: ${{github.ref_name}}
-          mvn_additional_args: " -f plugin -DargLine='-Xmx14g'"
+          mvn_additional_args: " -f plugin"
 
       - name: Build Data Pipeline
         uses: ikmdev/maven-clean-install-build-action@v3.5.0
         with:
           branch_name: ${{github.ref_name}}
-          mvn_additional_args: " -DargLine='-Xmx14g' -s '/home/runner/work/${{github.event.repository.name}}/.m2/tinkar-settings.xml' -DrepositoryId='maven-public'"
+          mvn_additional_args: " -s '/home/runner/work/${{github.event.repository.name}}/.m2/tinkar-settings.xml' -DrepositoryId='maven-public'"
