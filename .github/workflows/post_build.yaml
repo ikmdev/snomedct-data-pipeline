@@ -48,6 +48,8 @@ jobs:
                 }
               }
             ]'
+          profiles: '[{"id": "altDeploy", "properties": {"altDeploymentRepository": "maven-public::https://nexus.tinkarbuild.com/repository/maven-public/"}}]'
+          active_profiles: '["altDeploy"]'
           output_file: ../.m2/tinkar-settings.xml
 
       - name: Build Plugins
