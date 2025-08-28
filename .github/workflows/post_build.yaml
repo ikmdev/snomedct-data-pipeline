@@ -28,7 +28,7 @@ jobs:
       - name: Maven Settings File
         uses: whelk-io/maven-settings-xml-action@v22
         with:
-          servers: '[{"id": "maven-public", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
+          servers: '[{"id": "maven-public", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}", id": "maven-snapshots", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
           mirrors: '[{"id": "maven-public", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/maven-public/"}]'
           repositories: '
             [
