@@ -48,8 +48,6 @@ jobs:
                 }
               }
             ]'
-          profiles: '[{"id": "altDeploy", "properties": {"altDeploymentRepository": "maven-public::https://nexus.tinkarbuild.com/repository/maven-public/"}}]'
-          active_profiles: '["altDeploy"]'
           output_file: ../.m2/tinkar-settings.xml
 
       - name: Build Plugins
@@ -70,5 +68,6 @@ jobs:
             -DskipITs \
             -s '/home/runner/work/${{github.event.repository.name}}/.m2/tinkar-settings.xml'\
             -DrepositoryId='maven-public' \
+            -DaltDeploymentRepository='maven-public::https://nexus.tinkarbuild.com/repository/maven-public/' \
             -Dmaven.build.cache.enabled=false \
             -PgenerateData
