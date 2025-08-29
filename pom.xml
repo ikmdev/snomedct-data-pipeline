@@ -19,45 +19,33 @@
     <name>SNOMED CT Data</name>
 
     <properties>
-        <!-- maven plugins -->
-        <maven-artifacts.version>1.35.0</maven-artifacts.version>
-        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
-        <exec-maven-plugin.version>3.5.0</exec-maven-plugin.version>
-        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
-        <maven-clean-plugin.version>3.3.1</maven-clean-plugin.version>
-        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-        <!-- origin -->
-        <origin.working.directory>${project.build.directory}/origin-sources</origin.working.directory>
-<!--        <source.zip>${user.home}/Downloads/SnomedCT_InternationalRF2_PRODUCTION_${source.version}.zip</source.zip>-->
-<!--        <gmdn.mapping.source.zip>${user.home}/Downloads/SnomedCT_GMDNMapRelease_PRODUCTION_20250331T120000Z.zip</gmdn.mapping.source.zip>-->
-<!--        <gmdn.device.source.zip>${user.home}/Downloads/gmdnData25_7.zip</gmdn.device.source.zip>-->
-        <dataStoreLocation>${project.basedir}/../target</dataStoreLocation>
-        <dataStore>snomedct-international</dataStore>   
-        
         <maven.compiler.source>23</maven.compiler.source>
         <maven.compiler.target>23</maven.compiler.target>
         <java.version>23</java.version>
-        <lucene.version>9.12.1</lucene.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+
+        <!-- dependency versions -->
         <tinkar-core.version>1.121.0</tinkar-core.version>
         <tinkar-schema.version>1.42.0</tinkar-schema.version>
-        <tinkar-transformer-api.version>1.7.0</tinkar-transformer-api.version>
-        <log4j.version>3.0.0-alpha1</log4j.version>
-        <slf4j.version>2.0.17</slf4j.version>
         <tinkar-composer.version>1.8.0</tinkar-composer.version>
         <eclipse-collections-api.version>12.0.0.M3-r2</eclipse-collections-api.version>
         <maven-plugin-plugin.version>3.13.0</maven-plugin-plugin.version>
         <maven-plugin-annotations.version>3.15.0</maven-plugin-annotations.version>
         <maven-plugin-api.version>3.9.9</maven-plugin-api.version>
-        <!--nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version-->
+
+        <!-- plugin versions -->
+        <maven-artifacts.version>1.35.0</maven-artifacts.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
         <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
-        <jupiter.version>5.12.2</jupiter.version>
 
         <!-- origin -->
         <origin.namespace>3094dbd1-60cf-44a6-92e3-0bb32ca4d3de</origin.namespace>
+        <origin.working.directory>${project.build.directory}/origin-sources</origin.working.directory>
 
         <!-- starter data -->
         <tinkar-starter-data.groupId>dev.ikm.data.tinkar</tinkar-starter-data.groupId>
@@ -65,15 +53,12 @@
         <tinkar-starter-data.classifier>unreasoned-pb</tinkar-starter-data.classifier>
         <tinkar-starter-data.version>20250827</tinkar-starter-data.version>
 
-
-
-
+        <!-- pipeline params -->
         <source.qualifier>international</source.qualifier>
         <source.version>20250101T120000Z</source.version>
         <snomedct-origin.version>${source.qualifier}-${source.version}+1.0.0-SNAPSHOT</snomedct-origin.version>
-        <data-artifact.prefix>${project.artifactId}-${project.version}</data-artifact.prefix>
-        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
         <transformation-plugin.version>1.0.0-SNAPSHOT</transformation-plugin.version>
+        <data-artifact.prefix>${project.artifactId}-${project.version}</data-artifact.prefix>
     </properties>
 
     <build>
@@ -137,6 +122,21 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <!--
+            Pipeline Steps:
+                1) Copy protobuf data dependencies (i.e., tinkar-starter-data) to target/input-data folder
+                2) Copy and unzip source files (i.e., snomed text files) to target/origin-data
+                3) Load protobuf files from input-data
+                4) Run transformation processes (i.e., snomedct-starterdata-maven-plugin and snomedct-transformer-maven-plugin)
+                5) Run owl-transformer plugin
+                6) Copy entire spined-array in this unreasoned state to make the unreasoned-sa artifact (i.e., ${project.artifactId}-${project.version}-unreasoned-sa.zip)
+                7) Run protobuf export plugin to create unreasoned-pb artifact (i.e., ${project.artifactId}-${project.version}-unreasoned-pb.zip)
+                8) Run the reasoner
+                9) Copy entire spined-array in this reasoned state to make the reasoned-sa artifact (i.e., ${project.artifactId}-${project.version}-reasoned-sa.zip)
+                10) Run protobuf export plugin to create reasoned-pb artifact (i.e., ${project.artifactId}-${project.version}-reasoned-pb.zip)
+                11) Attach protobuf artifacts for install / deploy
+        -->
 
         <plugins>
             <plugin>
