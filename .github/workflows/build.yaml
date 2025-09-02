@@ -25,14 +25,14 @@ jobs:
       - name: Maven Settings File
         uses: whelk-io/maven-settings-xml-action@v22
         with:
-          servers: '[{"id": "maven-public", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
-          mirrors: '[{"id": "maven-public", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/maven-public/"}]'
+          servers: '[{"id": "tinkar-nexus", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
+          mirrors: '[{"id": "tinkar-nexus", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/private-assets/"}]'
           repositories: '
             [
               {
-                "id": "maven-public",
-                "name": "maven-public",
-                "url": "https://nexus.tinkarbuild.com/repository/maven-public/",
+                "id": "tinkar-nexus",
+                "name": "tinkar-nexus",
+                "url": "https://nexus.tinkarbuild.com/repository/private-assets/",
                 "releases": {
                   "enabled": "true",
                   "updatePolicy": "always",
@@ -57,4 +57,4 @@ jobs:
         uses: ikmdev/maven-clean-install-build-action@v3.5.0
         with:
           branch_name: ${{github.ref_name}}
-          mvn_additional_args: " -s '/home/runner/work/${{github.event.repository.name}}/.m2/tinkar-settings.xml' -DrepositoryId='maven-public'"
+          mvn_additional_args: " -s '/home/runner/work/${{github.event.repository.name}}/.m2/tinkar-settings.xml' -DrepositoryId='tinkar-nexus'"
