@@ -26,7 +26,7 @@ jobs:
         uses: whelk-io/maven-settings-xml-action@v22
         with:
           servers: '[{"id": "tinkar-nexus", "username": "admin", "password": "${{secrets.EC2_NEXUS_PASSWORD}}"}]'
-          mirrors: '[{"id": "tinkar-nexus", "mirrorOf": "*", "url": "https://nexus.tinkarbuild.com/repository/private-assets/"}]'
+          mirrors: '[{"id": "tinkar-nexus", "mirrorOf": "*,!central", "url": "https://nexus.tinkarbuild.com/repository/private-assets/"}]'
           repositories: '
             [
               {
