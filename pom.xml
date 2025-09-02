@@ -55,7 +55,7 @@
 
         <!-- pipeline params -->
         <source.qualifier>international</source.qualifier>
-        <source.version>20250101T120000Z</source.version>
+        <source.version>20250801T120000Z</source.version>
         <snomedct-origin.version>${source.qualifier}-${source.version}+1.0.0-SNAPSHOT</snomedct-origin.version>
         <transformation-plugin.version>1.0.0-SNAPSHOT</transformation-plugin.version>
         <data-artifact.prefix>${project.artifactId}-${project.version}</data-artifact.prefix>
