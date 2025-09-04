@@ -33,6 +33,7 @@ public class SnomedToGmdnTransformer extends AbstractTransformer {
     private static final int MAP_TARGET = 6;
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final EntityProxy.Pattern PRIMORDIAL_SNOMED_TO_GMDN_SIMPLE_MAP_PATTERN = EntityProxy.Pattern.make("PRIMORDIAL_SNOMED_TO_GMDN_SIMPLE_MAP_PATTERN", UUID.fromString("945f0b1c-a201-40c3-89fb-ca633d175378"));
 
     SnomedToGmdnTransformer(UUID namespace) {
         super(namespace);
@@ -70,7 +71,7 @@ public class SnomedToGmdnTransformer extends AbstractTransformer {
 
                         session.compose((SemanticAssembler assembler) -> assembler
                                 .semantic(semantic)
-                                .pattern(SnomedTerm.PRIMORDIAL_SNOMED_TO_GMDN_SIMPLE_MAP_PATTERN)
+                                .pattern(PRIMORDIAL_SNOMED_TO_GMDN_SIMPLE_MAP_PATTERN)
                                 .reference(snomedConcept)
                                 .fieldValues(fieldValues -> fieldValues
                                         .with(IntIdSetArray.newIntIdSet(gmdnConcept.nid()))

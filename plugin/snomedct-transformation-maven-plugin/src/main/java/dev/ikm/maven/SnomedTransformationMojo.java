@@ -109,8 +109,8 @@ public class SnomedTransformationMojo extends AbstractMojo {
 
     private Path searchTerminologyFolder(File baseDirectory, String parentDir) {
         // TODO: Fix this to align with updated origin packaging structure
-//        Path dataDirectory = baseDirectory.toPath().resolve("src", parentDir);
-        Path dataDirectory = baseDirectory.toPath();
+        Path dataDirectory = baseDirectory.toPath().resolve("src", parentDir);
+//        Path dataDirectory = baseDirectory.toPath();
         try (Stream<Path> stream = Files.walk(dataDirectory)) {
             return stream
                     .filter(file -> file.toFile().isDirectory() && "Full".equals(file.toFile().getName()))
