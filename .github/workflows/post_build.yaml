@@ -47,6 +47,7 @@ jobs:
                   "checksumPolicy": "fail"
                 }
               },
+              {
                 "id": "maven-snapshots",
                 "name": "maven-snapshots",
                 "url": "https://nexus.tinkarbuild.com/repository/maven-snapshots/",
